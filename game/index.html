@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Hi Low Game</title>
+    <link rel='stylesheet' href='style.css'>
+
+</head>
+<body>
+<header>
+    <h3>Lets guess the secret number between 1 and 10</h3>
+    <h3>You have 5 chances to guess </h3>
+</header> 
+
+    <br/>
+    <br/>
+
+<form class='form'>   
+<div class='secretno'>
+    <label for='secretno'>Please enter your guess for secret no (between 1 and 10):</label>
+    <input id='secretno' type='number' name='secretno' step='1' min='1' max='10' required>
+    <span class='validity'></span>
+    <input type='button' class='submitguess' value="Submit your guess">
+</div>
+</form> 
+    <br/>
+    <br/>
+<div class='display' >
+    <p id ='resultmatch'> </p>
+    <p id ='highorlow'> </p>
+    <p id ='guesslist'> </p>
+</div>    
+
+
+
+<script>
+
+    const submitguess = document.querySelector('.submitguess');
+    const inputno = document.querySelector('#secretno');
+    const resultmatch = document.querySelector('#resultmatch');
+    const highorlow = document.querySelector('#highorlow');
+    const guesslist = document.querySelector('#guesslist');
+
+    let randomNumber = Math.floor(Math.random() * 10) + 1;
+    let count = 1;
+    let resetButton;
+
+    function guessvalid(){
+        let input =Number(inputno.value);
+        //alert('I am at 0');
+
+        if (count === 1) {
+            guesslist.textContent = 'Your previous guesses were:';
+          } 
+
+         guesslist.textContent += input +', ';
+
+
+        if (randomNumber===input) {
+             //alert('I am here 1');
+              resultmatch.textContent= 'Bazingaa!!! You got it absolutely right';
+              
+              highorlow.textContent= '';
+              guesslist.textContent= '';
+              GameOver();
+
+        }
+        else if (count === 5 ) {
+              resultmatch.textContent= 'Game Over !! Thanks for playing.';
+              //alert('I am here 2');
+              highorlow.textContent= '';
+              guesslist.textContent= '';
+              GameOver();
+        }
+        else {
+            //alert('I am here 3');
+            resultmatch.textContent= 'Sorry the secret no and your guess do not match.Please try again !!';
+            
+            if (randomNumber> input){
+               // alert('I am here 4');
+                highorlow.textContent= 'Hint.The guess was lower than the secret no.';
+               
+            } else if (randomNumber< input){
+               // alert('I am here 5');
+                highorlow.textContent= 'Hint.The guess was higher than the secret no.';
+                
+            } 
+
+        }
+        count=count+1;
+        input.value='';
+
+    }
+
+    submitguess.addEventListener('click', guessvalid);
+
+    
+    function GameOver() {
+          inputno.disabled = true;
+          submitguess.disabled = true;
+          resetButton = document.createElement('button');
+          resetButton.textContent = 'Lets play again';
+          document.body.appendChild(resetButton);
+          resetButton.className= 'btn';
+          resetButton.addEventListener('click', reset);
+        }
+
+    function reset() {
+    count = 1;
+    const newDisplay = document.querySelectorAll('.display p');
+    for(let k = 0 ; k < newDisplay.length ; k++) {
+            newDisplay[k].textContent = '';
+          }
+       
+      
+        resetButton.parentNode.removeChild(resetButton);
+        inputno.disabled = false;
+        submitguess.disabled = false;
+        inputno.value = '';        
+        randomNumber = Math.floor(Math.random() * 10) + 1;
+
+    }
+</script>
+
+
+
+</body>
+</html>

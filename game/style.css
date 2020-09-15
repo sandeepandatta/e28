@@ -1,0 +1,35 @@
+
+body {
+    background-color: aquamarine;
+}
+header{
+    margin:100px;
+    border: 2px solid red;
+}
+header, .form, p{
+    text-align: center;
+}
+.btn{
+    color:#fff;
+    background:blue;
+    width: 700px;
+    
+    display:block;
+    margin: auto;
+  
+   
+    
+  }
+
+.submitguess{
+    color:#fff;
+    background:rgb(255, 0, 200);
+}
+label {
+    font-weight: bold;
+}
+
+.display{
+    font-weight: bold;
+    font-style: italic;
+}
